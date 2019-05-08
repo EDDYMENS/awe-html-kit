@@ -1,0 +1,50 @@
+//Components
+
+<br />
+//search component
+
+<input data-awe-search="popular" /><button data-awe-search-btn="popular">
+  Search
+</button>
+
+<br />
+//loading component
+<div data-awe-loader="popular">
+  Loading...
+</div>
+
+<br />
+//Video list component
+<ul data-awe-list="popular" data-limit="10">
+  <li>
+    <a href="details/?aweVideoId=@id">@title</a>
+    <img src="@previewImages.2" />
+  </li>
+</ul>
+
+Pagination component
+<ul data-awe-paginate="popular" data-pageLength="10">
+  <li data-previous>
+    Previous
+    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
+  </li>
+  <li data-numbers></li>
+  <li data-next>
+    Next
+    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
+  </li>
+</ul>
+
+<!-- connection details to be copied from dashboard -->
+<script
+  src="http://localhost:6060/awe-sdk.js"
+  data-awe-connection
+  data-awe-PSID="eddymens"
+  data-awe-clientIp="0.0.0.0"
+  data-awe-accessKey="c72e2607c16a9873f6077df1ce496f8a"
+></script>
+
+<!-- <object data="https://via.placeholder.co9kjm/150" type="image/png">
+    <b>No image was loaded</b>
+    <img src="https://via.placeholder.com/150" alt="example" />
+  </object> -->
