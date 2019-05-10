@@ -1,6 +1,21 @@
 window.onload = function() {
   (function() {
-    var connectionEl = document.querySelectorAll("[data-awe-connection]");
+    var tagQueryMap = {
+      list: { raw: "data-awe-list", refined: "aweList" },
+      player: { raw: "data-awe-player", refined: "awePlayer" },
+      searchBtn: { raw: "data-awe-search-btn", refined: "aweSearchBtn" },
+      searchInp: { raw: "data-awe-search", refined: "aweSearch" },
+      connection: { raw: "data-awe-connection", refined: "aweConnection" },
+      loader: { raw: "data-awe-loader", refined: "aweLoader" },
+      tags: { raw: "data-awe-tags", refined: "aweTags" },
+      pagination: { raw: "data-awe-paginate", refined: "awePaginate" },
+      pageNumbers: { raw: "data-numbers", refined: "numbers" },
+      pagePrevious: { raw: "data-previous", refined: "previous" },
+      pageNext: { raw: "data-next", refined: "next" }
+    };
+    var connectionEl = document.querySelectorAll(
+      `[${tagQueryMap["connection"].raw}]`
+    );
     if (!connectionEl.length) {
       console.error("Sorry but you need to set your connectiond details");
       return;
@@ -60,44 +75,78 @@ window.onload = function() {
 
     //actions
     helpers.actions = {
-      showOrHideComponent: function(componentTag, action, dataSet) {
-        var componentList = document.querySelectorAll("[" + componentTag + "]");
+      showOrHideComponent: function(componentTag, action, dataSet, label) {
+        var componentList = document.querySelectorAll(
+          `[${componentTag}=${label}]`
+        );
         componentList.forEach(component => {
-          if (
-            component.dataset[dataSet.tag].toLowerCase() ==
-            component.dataset.aweLoader.toLowerCase()
-          ) {
-            action == "hide"
-              ? helpers.style.hideElement(component)
-              : helpers.style.showElement(component);
-          }
+          action == "hide"
+            ? helpers.style.hideElement(component)
+            : helpers.style.showElement(component);
         });
       },
       removeLoader: function(label) {
-        helpers.actions.showOrHideComponent("data-awe-loader", "hide", {
-          tag: "aweLoader"
-        });
+        helpers.actions.showOrHideComponent(
+          tagQueryMap["loader"].raw,
+          "hide",
+          {
+            tag: "aweLoader"
+          },
+          label
+        );
       },
-      hidePagination: function(label) {
-        console.log(label);
+      showLoader: function(label) {
+        helpers.actions.showOrHideComponent(
+          tagQueryMap["loader"].raw,
+          "show",
+          {
+            tag: "aweLoader"
+          },
+          label
+        );
       },
-      showPagination: function(label) {
-        console.log(label);
+      hidePaginator: function(label) {
+        helpers.actions.showOrHideComponent(
+          tagQueryMap["pagination"].raw,
+          "hide",
+          {
+            tag: "awePaginate"
+          },
+          label
+        );
+      },
+      showPaginator: function(label) {
+        helpers.actions.showOrHideComponent(
+          tagQueryMap["pagination"].raw,
+          "show",
+          {
+            tag: "awePaginate"
+          },
+          label
+        );
       },
       getLabel: function(element, componentType) {
         var labelKey = tagQueryMap[componentType].refined;
         return element.dataset[labelKey];
+      },
+      getElement: function(label, componentType) {
+        return document.querySelector(
+          `[${tagQueryMap[componentType].raw}=${label}]`
+        );
+      },
+      savePaginatorTemplate: function(label) {
+        var element = document.querySelector(
+          `[${tagQueryMap["pagination"].raw}=${label}]`
+        );
+        templateList.paginators[label] = {};
+        templateList.paginators[label].element = element;
       }
     };
 
     /**
      * End (helpers)
      */
-    var tagQueryMap = {
-      list: { raw: "data-awe-list", refined: "aweList" },
-      player: { raw: "data-awe-player", refined: "awePlayer" },
-      searchBtn: { raw: "data-awe-search-btn", refined: "searchBtn" }
-    };
+
     var listElements = document.querySelectorAll(
       `[${tagQueryMap["list"].raw}]`
     );
@@ -105,15 +154,24 @@ window.onload = function() {
     var searchBtnList = document.querySelectorAll(
       `[${tagQueryMap["searchBtn"].raw}]`
     );
-    var templateList = { list: {} };
+    var tagList = document.querySelectorAll(`[${tagQueryMap["tags"].raw}]`);
+
+    var templateList = { list: {}, paginators: {} };
     if (!listElements.length && !players.length) {
       return;
     }
 
     listElements.forEach(element => {
-      preRenderActions({ element: element });
+      preRenderActions({ element: element }, "list");
       var label = helpers.actions.getLabel(element, "list");
+      helpers.actions.savePaginatorTemplate(label);
       listVideos(label);
+    });
+
+    tagList.forEach(element => {
+      preRenderActions({ element: element }, "tags");
+      var label = helpers.actions.getLabel(element, "tags");
+      listTags(label);
     });
 
     players.forEach(element => {
@@ -122,6 +180,35 @@ window.onload = function() {
     searchBtnList.forEach(searchBtnElement => {
       prepareSearchEvent(searchBtnElement);
     });
+
+    function renderPaginator(label, pageData, filterList) {
+      var element = templateList.paginators[label].element;
+      var pagerLength = element.dataset.pagerLength;
+      var paginatorSize = pagerLength ? pagerLength : 7;
+      var template = element.querySelector(
+        `[${tagQueryMap["pageNumbers"].raw}]`
+      );
+      element.innerHTML = "";
+      var flipPageFunc = function(label, options, count) {
+        return function() {
+          options.pageIndex = count;
+          listVideos(label, options);
+        };
+      };
+      for (var i = 1; i <= paginatorSize; i++) {
+        liveTemplate = template.cloneNode(true);
+        liveTemplate.innerHTML = i;
+        pageData.currentPage == i
+          ? liveTemplate.classList.add("active")
+          : liveTemplate.classList.remove("active");
+
+        liveTemplate.onclick = flipPageFunc(label, filterList, i);
+        element.appendChild(liveTemplate);
+      }
+      // element.parentNode.replaceChild(mainTemplate, element);
+      //if perPage == total don't paginate
+      //if currentPage is within 1 to pageSize-1 just render 1-7
+    }
     function playVideo(element) {
       const playerId = Math.random();
       var dataSets = element.dataset;
@@ -133,11 +220,17 @@ window.onload = function() {
       if (!videoId) {
         return;
       }
-      element.innerHTML = ` <div class="awe-player" data-awe-container-id="${playerId}" ></div>`;
+      element.innerHTML += ` <div class="awe-player" data-awe-container-id="${playerId}" ></div>`;
+      preRenderActions({ element: element }, "player");
       requestProcessor("details/" + videoId, connectionObj, function(response) {
         if (!response.data.playerEmbedUrl) {
           console.error("contentHash could not be resolved");
         }
+        render(element, [response.data]);
+        postRenderActions({
+          element: element,
+          loaderLabel: element.dataset.awePlayer
+        });
         var url = new URL(response.data.playerEmbedUrl);
         var contentHash = url.searchParams.get("contentHash");
         try {
@@ -178,54 +271,113 @@ window.onload = function() {
         }
       });
     }
-    function listVideos(label, options) {
+
+    function listTags(label, options, template) {
+      options = options ? options : {};
+      var element = templateList.list[label].element;
+      if (!element) {
+        throw `Sorry but no element was found with for the label ${label}`;
+      }
+      var action = "tags";
+      var filterList = options.filterList
+        ? options.filterList
+        : element.dataset;
+      var query = {};
+      preRenderActions({ element: element }, action);
+      var renderVids = function(videoList, filterList, template) {
+        render(element, videoList, template);
+        postRenderActions({
+          element: element,
+          loaderLabel: filterList.aweTags
+        });
+      };
+      if (options.videoList) {
+        return renderVids(videoList, filterList, template);
+      }
+      requestProcessor(action, filterList, function(response) {
+        var videoList = response.data.tags;
+        renderVids(videoList, filterList, template);
+      });
+    }
+    function listVideos(label, options, template) {
       options = options ? options : {};
       var element = templateList.list[label].element;
       if (!element) {
         throw `Sorry but no element was found with for the label ${label}`;
       }
       var action = "list";
-      var filterList = element.dataset ? element.dataset : options.filterList;
+      var pagination = options.pagination;
+      delete options.pagination;
+      var filterList = options.filterList
+        ? options.filterList
+        : element.dataset;
       var query = {};
-      var renderVids = function(videoList, filterList) {
-        render(element, videoList);
+      preRenderActions({ element: element }, action);
+      var renderVids = function(videoList, filterList, template) {
+        render(element, videoList, template);
         postRenderActions({
           element: element,
           loaderLabel: filterList.aweList
         });
       };
       if (options.videoList) {
-        return renderVids(videoList, filterList);
+        renderPaginator(label, options.pagination, filterList);
+        return renderVids(videoList, filterList, template);
       }
       requestProcessor(action, filterList, function(response) {
         var videoList = response.data.videos;
-        renderVids(videoList, filterList);
+        renderPaginator(label, response.data.pagination, filterList);
+        renderVids(videoList, filterList, template);
       });
     }
-
+    function nextPage(label, options) {}
     //actions to preform before rendering
-    function preRenderActions(payload) {
-      var label = payload.element.dataset.aweList;
+    function preRenderActions(payload, componentType) {
+      var label = payload.element.dataset[tagQueryMap[componentType].refined];
       if (!label) {
-        throw 'Sorry but you need to label you list template eg: `data-awe-list="popular"`';
+        throw 'Sorry but you need to label your list template eg: `data-awe-list="popular"`';
       }
-      templateList.list[label.toLowerCase()] = {
-        element: payload.element,
-        data: payload.data
-      };
+      label = label.toLowerCase();
+      if (!templateList.list[label]) {
+        templateList.list[label.toLowerCase()] = {
+          element: payload.element,
+          template: payload.element.cloneNode(true),
+          data: payload.data
+        };
+      }
+      helpers.actions.showLoader(label);
+      helpers.actions.hidePaginator(label);
       helpers.style.hideElement(payload.element);
     }
 
     //actions to preform after rendering
     function postRenderActions(payload) {
       helpers.actions.removeLoader(payload.loaderLabel);
+      helpers.actions.showPaginator(payload.loaderLabel);
       helpers.style.showElement(payload.element);
     }
 
     function prepareSearchEvent(searchBtnElement) {
       searchBtnElement.onclick = function() {
         var listLabel = this.dataset.aweSearchBtn;
-        listVideos(listLabel);
+        var template = templateList.list[listLabel].template.innerHTML;
+        var filterList = templateList.list[listLabel].element.dataset;
+        var element = helpers.actions.getElement(listLabel, "searchInp");
+        if (!element) {
+          throw `Sorry but it looks like you don't have a search box in place for search ie: <input data-awe-search="popular" />`;
+        }
+        var searchWords = element.value;
+        filterList.tags =
+          searchWords.split(" ").length == 2
+            ? searchWords
+            : searchWords.replace(/ /g, ",");
+        listVideos(
+          listLabel,
+          {
+            filterList: filterList
+          },
+          template
+        );
       };
     }
     //responsible for rendering list views
@@ -234,20 +386,24 @@ window.onload = function() {
       element.innerHTML = "";
       dataGrp.forEach(data => {
         var liveTemplate = template;
-        for (var key in data) {
-          if (typeof data[key] == "object") {
-            count = 0;
-            innerData = data[key];
-            for (var key2 in innerData) {
-              liveTemplate = liveTemplate.replace(
-                "@" + key + "." + count,
-                innerData[key2]
-              );
-              count++;
+        if (typeof data == "string") {
+          liveTemplate = liveTemplate.replace("@tag", data);
+        } else {
+          for (var key in data) {
+            if (typeof data[key] == "object") {
+              count = 0;
+              innerData = data[key];
+              for (var key2 in innerData) {
+                liveTemplate = liveTemplate.replace(
+                  "@" + key + "." + count,
+                  innerData[key2]
+                );
+                count++;
+              }
+              count = 0;
+            } else {
+              liveTemplate = liveTemplate.replace("@" + key, data[key]);
             }
-            count = 0;
-          } else {
-            liveTemplate = liveTemplate.replace("@" + key, data[key]);
           }
         }
         element.innerHTML += liveTemplate;

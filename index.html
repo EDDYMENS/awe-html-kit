@@ -1,3 +1,9 @@
+<style>
+  .active {
+    background-color: red;
+  }
+</style>
+
 //Components
 
 <br />
@@ -14,24 +20,33 @@
 </div>
 
 <br />
+
+Pagination component
+<ul data-awe-paginate="popular" data-pager-length="10">
+  <li data-previous>
+    Previous
+    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
+  </li>
+  <button data-numbers></button>
+  <li data-next>
+    Next
+    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
+  </li>
+</ul>
+
 //Video list component
 <ul data-awe-list="popular" data-limit="10">
   <li>
     <a href="details/?aweVideoId=@id">@title</a>
     <img src="@previewImages.2" />
+    @uploader
   </li>
 </ul>
 
-Pagination component
-<ul data-awe-paginate="popular" data-pageLength="10">
-  <li data-previous>
-    Previous
-    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
-  </li>
-  <li data-numbers></li>
-  <li data-next>
-    Next
-    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
+list tags
+<ul data-awe-tags="alltags" data-limit="10">
+  <li>
+    @tag
   </li>
 </ul>
 
@@ -43,8 +58,3 @@ Pagination component
   data-awe-clientIp="0.0.0.0"
   data-awe-accessKey="c72e2607c16a9873f6077df1ce496f8a"
 ></script>
-
-<!-- <object data="https://via.placeholder.co9kjm/150" type="image/png">
-    <b>No image was loaded</b>
-    <img src="https://via.placeholder.com/150" alt="example" />
-  </object> -->
