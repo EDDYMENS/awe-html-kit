@@ -140,6 +140,20 @@ window.onload = function() {
         );
         templateList.paginators[label] = {};
         templateList.paginators[label].element = element;
+      },
+      generatePager: function(currentCount, wantedLength) {
+        var pageSplit = wantedLength / 2;
+        var leftCount = Math.floor(pageSplit);
+        var rightCount = Math.round(pageSplit);
+        var startFrom =
+          currentCount > leftCount ? currentCount - leftCount : currentCount;
+        var endAt = currentCount + rightCount - 1;
+        endAt =
+          endAt - startFrom != wantedLength
+            ? parseInt(startFrom) + parseInt(wantedLength) - 1
+            : endAt;
+        console.log(startFrom, endAt);
+        return { startFrom: startFrom, endAt: endAt };
       }
     };
 
@@ -192,10 +206,16 @@ window.onload = function() {
       var flipPageFunc = function(label, options, count) {
         return function() {
           options.pageIndex = count;
-          listVideos(label, options);
+          var template = templateList.list[label].template.innerHTML;
+          listVideos(label, options, template);
         };
       };
-      for (var i = 1; i <= paginatorSize; i++) {
+      var pager =
+        pageData.currentPage < paginatorSize
+          ? { startFrom: 1, endAt: paginatorSize }
+          : helpers.actions.generatePager(pageData.currentPage, paginatorSize);
+      console.log(pager);
+      for (var i = pager.startFrom; i <= pager.endAt; i++) {
         liveTemplate = template.cloneNode(true);
         liveTemplate.innerHTML = i;
         pageData.currentPage == i
@@ -384,6 +404,7 @@ window.onload = function() {
     function render(element, dataGrp, prepTemplate) {
       var template = prepTemplate ? prepTemplate : element.innerHTML;
       element.innerHTML = "";
+      var completeTemplate = "";
       dataGrp.forEach(data => {
         var liveTemplate = template;
         if (typeof data == "string") {
