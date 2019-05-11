@@ -23,15 +23,13 @@
 
 Pagination component
 <ul data-awe-paginate="popular" data-pager-length="10">
-  <li data-previous>
-    Previous
-    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
-  </li>
-  <button data-numbers></button>
-  <li data-next>
-    Next
-    <img src="assets/arrow-right.svg" class="pagination-right-arrow" />
-  </li>
+  <button data-pager-previous>
+    << Prev
+  </button>
+  <button data-pager-numbers></button>
+  <button data-pager-next>
+    Next >>
+  </button>
 </ul>
 
 //Video list component
@@ -46,7 +44,7 @@ Pagination component
 list tags
 <ul data-awe-tags="alltags" data-limit="10">
   <li>
-    @tag
+    <a href="/?videoTags=@tag">@tag</a>
   </li>
 </ul>
 

@@ -9,9 +9,9 @@ window.onload = function() {
       loader: { raw: "data-awe-loader", refined: "aweLoader" },
       tags: { raw: "data-awe-tags", refined: "aweTags" },
       pagination: { raw: "data-awe-paginate", refined: "awePaginate" },
-      pageNumbers: { raw: "data-numbers", refined: "numbers" },
-      pagePrevious: { raw: "data-previous", refined: "previous" },
-      pageNext: { raw: "data-next", refined: "next" }
+      pageNumbers: { raw: "data-pager-numbers", refined: "pagerNumbers" },
+      pagePrevious: { raw: "data-pager-previous", refined: "pagerPrevious" },
+      pageNext: { raw: "data-pager-next", refined: "pagerNext" }
     };
     var connectionEl = document.querySelectorAll(
       `[${tagQueryMap["connection"].raw}]`
@@ -140,6 +140,7 @@ window.onload = function() {
         );
         templateList.paginators[label] = {};
         templateList.paginators[label].element = element;
+        templateList.paginators[label].template = element.cloneNode(true);
       },
       generatePager: function(currentCount, wantedLength) {
         var pageSplit = wantedLength / 2;
@@ -152,8 +153,25 @@ window.onload = function() {
           endAt - startFrom != wantedLength
             ? parseInt(startFrom) + parseInt(wantedLength) - 1
             : endAt;
-        console.log(startFrom, endAt);
         return { startFrom: startFrom, endAt: endAt };
+      },
+      getUrlParam: function(param) {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        return url.searchParams.get(param);
+      },
+      getRandomArr: function(arr, n) {
+        var result = new Array(n),
+          len = arr.length,
+          taken = new Array(len);
+        if (n > len)
+          throw new RangeError("getRandom: more elements taken than available");
+        while (n--) {
+          var x = Math.floor(Math.random() * len);
+          result[n] = arr[x in taken ? taken[x] : x];
+          taken[x] = --len in taken ? taken[len] : len;
+        }
+        return result;
       }
     };
 
@@ -197,10 +215,22 @@ window.onload = function() {
 
     function renderPaginator(label, pageData, filterList) {
       var element = templateList.paginators[label].element;
+      var pagertemplate = templateList.paginators[label].template;
       var pagerLength = element.dataset.pagerLength;
       var paginatorSize = pagerLength ? pagerLength : 7;
-      var template = element.querySelector(
+      var paginatorSize =
+        pageData.totalPages < paginatorSize
+          ? pageData.totalPages
+          : paginatorSize;
+
+      var template = pagertemplate.querySelector(
         `[${tagQueryMap["pageNumbers"].raw}]`
+      );
+      var prevBtn = pagertemplate.querySelector(
+        `[${tagQueryMap["pagePrevious"].raw}]`
+      );
+      var nextBtn = pagertemplate.querySelector(
+        `[${tagQueryMap["pageNext"].raw}]`
       );
       element.innerHTML = "";
       var flipPageFunc = function(label, options, count) {
@@ -214,8 +244,18 @@ window.onload = function() {
         pageData.currentPage < paginatorSize
           ? { startFrom: 1, endAt: paginatorSize }
           : helpers.actions.generatePager(pageData.currentPage, paginatorSize);
-      console.log(pager);
+      var prevCount = parseInt(pageData.currentPage) - 1;
+      if (prevBtn && prevCount > 0) {
+        element.appendChild(prevBtn.cloneNode(true)).onclick = flipPageFunc(
+          label,
+          filterList,
+          prevCount
+        );
+      }
       for (var i = pager.startFrom; i <= pager.endAt; i++) {
+        if (pageData.totalPages == i) {
+          break;
+        }
         liveTemplate = template.cloneNode(true);
         liveTemplate.innerHTML = i;
         pageData.currentPage == i
@@ -224,6 +264,14 @@ window.onload = function() {
 
         liveTemplate.onclick = flipPageFunc(label, filterList, i);
         element.appendChild(liveTemplate);
+      }
+      var nextCount = pageData.currentPage + 1;
+      if (nextBtn && nextCount < pageData.totalPages) {
+        element.appendChild(nextBtn.cloneNode(true)).onclick = flipPageFunc(
+          label,
+          filterList,
+          nextCount
+        );
       }
       // element.parentNode.replaceChild(mainTemplate, element);
       //if perPage == total don't paginate
@@ -304,22 +352,28 @@ window.onload = function() {
         : element.dataset;
       var query = {};
       preRenderActions({ element: element }, action);
-      var renderVids = function(videoList, filterList, template) {
-        render(element, videoList, template);
+      var resizeTagList = function(tagList, size) {
+        return helpers.actions.getRandomArr(tagList, size);
+      };
+      var renderVids = function(tagList, filterList, template) {
+        var size = filterList.limit ? filterList.limit : tagList.length;
+        tagList = resizeTagList(tagList, size);
+        render(element, tagList, template);
         postRenderActions({
           element: element,
           loaderLabel: filterList.aweTags
         });
       };
-      if (options.videoList) {
-        return renderVids(videoList, filterList, template);
+      if (options.tagList) {
+        return renderVids(options.tagList, filterList, template);
       }
       requestProcessor(action, filterList, function(response) {
-        var videoList = response.data.tags;
-        renderVids(videoList, filterList, template);
+        var tagList = response.data.tags;
+        renderVids(tagList, filterList, template);
       });
     }
     function listVideos(label, options, template) {
+      var urlVideoTags = helpers.actions.getUrlParam("videoTags");
       options = options ? options : {};
       var element = templateList.list[label].element;
       if (!element) {
@@ -331,6 +385,13 @@ window.onload = function() {
       var filterList = options.filterList
         ? options.filterList
         : element.dataset;
+
+      if (urlVideoTags) {
+        filterList.tags =
+          filterList.tags && filterList.tags.length
+            ? filterList.tags + "," + urlVideoTags
+            : (filterList.tags = urlVideoTags);
+      }
       var query = {};
       preRenderActions({ element: element }, action);
       var renderVids = function(videoList, filterList, template) {
@@ -381,6 +442,7 @@ window.onload = function() {
       searchBtnElement.onclick = function() {
         var listLabel = this.dataset.aweSearchBtn;
         var template = templateList.list[listLabel].template.innerHTML;
+        templateList.list[listLabel].element.dataset.pageIndex = 1;
         var filterList = templateList.list[listLabel].element.dataset;
         var element = helpers.actions.getElement(listLabel, "searchInp");
         if (!element) {
@@ -408,14 +470,14 @@ window.onload = function() {
       dataGrp.forEach(data => {
         var liveTemplate = template;
         if (typeof data == "string") {
-          liveTemplate = liveTemplate.replace("@tag", data);
+          liveTemplate = liveTemplate.replaceAll("@tag", data);
         } else {
           for (var key in data) {
             if (typeof data[key] == "object") {
               count = 0;
               innerData = data[key];
               for (var key2 in innerData) {
-                liveTemplate = liveTemplate.replace(
+                liveTemplate = liveTemplate.replaceAll(
                   "@" + key + "." + count,
                   innerData[key2]
                 );
@@ -423,12 +485,16 @@ window.onload = function() {
               }
               count = 0;
             } else {
-              liveTemplate = liveTemplate.replace("@" + key, data[key]);
+              liveTemplate = liveTemplate.replaceAll("@" + key, data[key]);
             }
           }
         }
         element.innerHTML += liveTemplate;
       });
     }
+    String.prototype.replaceAll = function(search, replacement) {
+      var target = this;
+      return target.split(search).join(replacement);
+    };
   })();
 };
