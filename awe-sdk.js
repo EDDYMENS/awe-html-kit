@@ -491,7 +491,12 @@ window.onload = function() {
               }
               count = 0;
             } else {
-              liveTemplate = liveTemplate.replaceAll("@" + key, data[key]);
+              var value = data[key];
+              value =
+                key == "duration"
+                  ? Math.floor(parseFloat(value) / 60).toFixed(2)
+                  : value;
+              liveTemplate = liveTemplate.replaceAll("@" + key, value);
             }
           }
         }
