@@ -69,7 +69,7 @@ window.onload = function() {
         element.style.display = "none";
       },
       showElement: function(element) {
-        element.style.display = "block";
+        element.style.display = "flex";
       }
     };
 
@@ -138,6 +138,9 @@ window.onload = function() {
         var element = document.querySelector(
           `[${tagQueryMap["pagination"].raw}=${label}]`
         );
+        if (!element) {
+          return false;
+        }
         templateList.paginators[label] = {};
         templateList.paginators[label].element = element;
         templateList.paginators[label].template = element.cloneNode(true);
@@ -214,6 +217,9 @@ window.onload = function() {
     });
 
     function renderPaginator(label, pageData, filterList) {
+      if (!templateList.paginators[label]) {
+        return;
+      }
       var element = templateList.paginators[label].element;
       var pagertemplate = templateList.paginators[label].template;
       var pagerLength = element.dataset.pagerLength;
