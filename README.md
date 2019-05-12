@@ -50,7 +50,7 @@ Above you will notice the sample element has `data-awe-list` set to `popular`, p
 **Table 1.0.0** 
 <table>
 <tr>
-<td><b> Video properties</b></td>
+<td><b> Video property</b></td>
 <td><b>data type</b></td>
 <td><b>Description (Eg)</b></td>
 </tr>
@@ -119,15 +119,58 @@ Above you will notice the sample element has `data-awe-list` set to `popular`, p
 <td>eg: data-tags="69, above average" This will pull a list of videos that conform to the choosen tags</td>
 </tr>
 </table>
+
 **Add Paginating**
 
-> Blockquote
+> You might want to list out a few videos at first but also give your users the ability to browse through similar remaining videos without loading all at once, this is where pagination comes in. Its pretty straight forward add this data attribute `data-awe-paginate="label"` to your HTML markdown for the pagination. Note that the label should be the same as the label for the list video component. This is the only way the Kit will know to match the  paginator to the list video element.
+> You may also set the length of your paginator using the `data-pager-length="10"`  data attribute. Here is a complete example: 
+> 
+
+    <div  data-awe-paginate="popular"  data-pager-length="10">
+    
+    <button  data-pager-previous>
+    
+    << Prev
+    
+    </button>
+    
+    <button  data-pager-numbers></button>
+    
+    <button  data-pager-next>
+    
+    Next >>
+    
+    </button>
+    
+    </div>
+Keep an eye for the the `data-pager-next` , `data-pager-numbers` , `data-pager-previous` these are important to render the paginator. 
 
 **Add Page Loader**
+One of the nice to have when creating a tube is the ability to show a loader while the Kit fetches the videos from the server. This can easily be done using the  `data-awe-loader="label"` data attribute. Again remember the label value should match that of the list video element, this way the loader will show up whenever there are no videos within that list video element. Here is a complete example 
+
+    <div  data-awe-loader="popular">
+    
+    Loading...
+    
+    </div>
 
 > 
 **List Tags**
-> 
+> You might want to list tags to allow users click to video specific video contents. This can be done using the `data-awe-tags="label"` data attribute. This will bring out the entire tag listing, so you might want to limit this list using the `data-limit="10"` data attribute. 
+> Here is a complete example: 
+>   
+
+    <ul  data-awe-tags="alltags"  data-limit="10">
+    
+    <li>
+    
+    <a  href="/?videoTags=@tag">@tag</a>
+    
+    </li>
+    
+    </ul>
+**NB:** Specifing a https://base-url/?videoTags=tagName,tagName2 in the URL bar will render videos with those tags.
+ 
 **Add Video player**
 > Blockquote
 
