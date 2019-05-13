@@ -12,7 +12,7 @@ If you are not all that into reading you might want to checkout the [video serie
 
     <script
     
-    src="https://cdn.jsdelivr.net/gh/EDDYMENS/awe-html-kit/awe-sdk.js"
+    src="https://cdn.jsdelivr.net/gh/EDDYMENS/awe-html-kit/lib/library.min.js"
     
     data-awe-connection
     
