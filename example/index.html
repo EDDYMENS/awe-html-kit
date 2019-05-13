@@ -21,8 +21,16 @@
 
 <br />
 
+//Video list component
+<ul data-awe-list="popular" data-sexualOrientation="gay" data-limit="10">
+  <li>
+    <a href="details/?aweVideoId=@id">@title</a>
+    <img src="@previewImages.1" style="width: 258;height: 145;" />
+    @uploader @duration
+  </li>
+</ul>
 Pagination component
-<ul data-awe-paginate="popular" data-pager-length="10">
+<div data-awe-paginate="popular" data-pager-length="10">
   <button data-pager-previous>
     << Prev
   </button>
@@ -30,18 +38,9 @@ Pagination component
   <button data-pager-next>
     Next >>
   </button>
-</ul>
-
-//Video list component
-<ul data-awe-list="popular" data-limit="10">
-  <li>
-    <a href="details/?aweVideoId=@id">@title</a>
-    <img src="@previewImages.2" />
-    @uploader
-  </li>
-</ul>
-
+</div>
 list tags
+
 <ul data-awe-tags="alltags" data-limit="10">
   <li>
     <a href="/?videoTags=@tag">@tag</a>
@@ -50,7 +49,7 @@ list tags
 
 <!-- connection details to be copied from dashboard -->
 <script
-  src="http://localhost:6060/awe-sdk.js"
+  src="http://localhost:6060/lib/library.js"
   data-awe-connection
   data-awe-PSID="eddymens"
   data-awe-clientIp="0.0.0.0"

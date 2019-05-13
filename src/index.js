@@ -1,3 +1,4 @@
+"use strict";
 window.onload = function() {
   (function() {
     var tagQueryMap = {
@@ -29,7 +30,7 @@ window.onload = function() {
 
     //Handle all requests to the AWEMPIRE API
     function requestProcessor(action, filters, callback) {
-      params = queryToParams(Object.assign(filters, connectionObj));
+      var params = queryToParams(Object.assign(filters, connectionObj));
       const url =
         "https://pt.ptawe.com/api/video-promotion/v1/" + action + params;
       console.log(url);
@@ -61,7 +62,7 @@ window.onload = function() {
     /**
      * Helpers start here
      */
-    helpers = {};
+    var helpers = {};
 
     //style changes
     helpers.style = {
@@ -258,11 +259,11 @@ window.onload = function() {
           prevCount
         );
       }
-      for (var i = pager.startFrom; i <= pager.endAt; i++) {
-        if (pageData.totalPages == i) {
+      for (var i = pager.startFrom; i <= parseInt(pager.endAt); i++) {
+        if (parseInt(pageData.totalPages) == i) {
           break;
         }
-        liveTemplate = template.cloneNode(true);
+        var liveTemplate = template.cloneNode(true);
         liveTemplate.innerHTML = i;
         pageData.currentPage == i
           ? liveTemplate.classList.add("active")
@@ -288,7 +289,7 @@ window.onload = function() {
       var dataSets = element.dataset;
       var urlParams = new URLSearchParams(location.search);
 
-      var videoId = !dataSets.videoid
+      var videoId = !dataSets.videoId
         ? urlParams.get("aweVideoId")
         : dataSets.videoid;
       if (!videoId) {
@@ -480,8 +481,8 @@ window.onload = function() {
         } else {
           for (var key in data) {
             if (typeof data[key] == "object") {
-              count = 0;
-              innerData = data[key];
+              var count = 0;
+              var innerData = data[key];
               for (var key2 in innerData) {
                 liveTemplate = liveTemplate.replaceAll(
                   "@" + key + "." + count,
