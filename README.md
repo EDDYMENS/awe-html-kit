@@ -206,9 +206,9 @@ Key things to remember is to set the label to be the same as the list video comp
 
 **Todo**
 
+ - [x] Manage development with webpack
+ - [x] Minify production version 
  - [ ] Add test suite
- - [ ] Manage development with webpack
- - [ ] Minify production version 
 
  
 
