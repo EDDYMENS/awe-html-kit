@@ -1,6 +1,6 @@
 ### AWE  HTML KIT 
 The AWE HTML Kit makes it easy to build Tubes  that interact with the [AWEmpire API](http://awempire.com) , without writing a line of JavaScript.
-
+If you are not all that into reading you might want to checkout the [video series](#swewe).
 ### Getting Started
  **Credentials**
 
@@ -12,7 +12,7 @@ The AWE HTML Kit makes it easy to build Tubes  that interact with the [AWEmpire 
 
     <script
     
-    src="https://cdn.jsdelivr.net/gh/EDDYMENS/awe-html-kit@e078c6b6/awe-sdk.js"
+    src="https://cdn.jsdelivr.net/gh/EDDYMENS/awe-html-kit/awe-sdk.js"
     
     data-awe-connection
     
@@ -172,11 +172,43 @@ One of the nice to have when creating a tube is the ability to show a loader whi
 **NB:** Specifing a https://base-url/?videoTags=tagName,tagName2 in the URL bar will render videos with those tags.
  
 **Add Video player**
-> Blockquote
+> Ultimately you would like your users to view videos, to do this you will have to first pass the video Id through the URL . For example http://base-url/?aweVideoId=bab5c67a9e0b7bd2b42dda5cc0802503 where `aweVideoId` is the required key for passing the video and `bab5c67a9e0b7bd2b42dda5cc0802503` is the Id of the video. 
+> Next thing to do is assign an element for which the Kit will place the video player. To do this add the data attribute `data-awe-player="label"` to the element. Here is a complete example 
+> 
+
+    <div  data-awe-player="player"  style="width:600;height:600;">
+    
+    @title @duration
+    
+    </div>
+
+Also you may directly pass the video Id to the element using `data-videoId="videoId"`
+where video Id is the Id of the video. 
+Here is a complete example below 
+
+    <div  data-awe-player="player"  data-videoId="bab5c67a9e0b7bd2b42dda5cc0802503"  style="width:600;height:600;">
+    
+    @title @duration
+    
+    </div>
 
 **Add Search**
 
-> Blockquote
+> The HTML Kit will not be complete without a way to search through videos. The search component is made up of two parts, the search box and the search button. Below is a a complete example of search component. 
+> 
+
+    <input  data-awe-search="popular" /><button  data-awe-search-btn="popular">
+    
+    Search
+    
+    </button>
+Key things to remember is to set the label to be the same as the list video component's so that the search results can be displayed within that particular list video component 
+
+**Todo**
+
+ - [ ] Add test suite
+ - [ ] Manage development with webpack
+ - [ ] Minify production version 
 
  
 
