@@ -1,44 +1,78 @@
-* {
-    box-sizing: border-box;
+html {
+    background-color: #8b1010;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+.container {
+    /* background: #aaa; */
+    display: flex;
+    flex-wrap: wrap;
+    /* width: 50%; */
+    margin-left: 5%;
+    margin-right: 10%;
 }
 
-/* Float four columns side by side */
-.column {
-    float: left;
-    width: 25%;
-    padding: 0 10px;
+.container>div {
+    flex-grow: 1;
+    margin-bottom: 10%;
+    margin-left: 5%;
+    width: 20%;
+    height: 100px;
 }
 
-/* Remove extra left and right margins, due to padding in columns */
-.row {
-    margin: 0 -5px;
+.container>div>a {
+    color: aliceblue;
+    text-decoration: none;
+    word-wrap: break-word;
 }
 
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+.container>div>span {
+    color: aliceblue;
+    display: block;
+    word-wrap: break-word;
 }
 
-/* Style the counter cards */
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    /* this adds the "card" effect */
-    padding: 16px;
-    text-align: center;
-    background-color: #f1f1f1;
+.loader {
+    margin-left: 20%;
+    font-size: 20px;
 }
 
-/* Responsive columns - one column layout (vertical) on small screens */
-@media screen and (max-width: 600px) {
-    .column {
-        width: 100%;
-        display: block;
-        margin-bottom: 20px;
-    }
+#L4 {
+    width: 1000px;
+    height: 300px;
+    margin: 20px;
+    display: inline-block;
+}
+
+.pagination {
+    margin-left: 30%;
+}
+
+.pagination>button {
+    width: 5%;
+    height: 6%;
+}
+
+.search {
+    margin-left: 30%;
+}
+
+.search>input {
+    width: 500;
+    height: 50;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.search>button {
+    width: 90;
+    height: 50;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+/* active color for pagination  */
+.active {
+    border-color: #fff;
+    background-color: #8b1010;
+    color: #fff;
 }

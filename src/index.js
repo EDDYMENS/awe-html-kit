@@ -288,9 +288,8 @@ window.onload = function() {
       const playerId = Math.random();
       var dataSets = element.dataset;
       var urlParams = new URLSearchParams(location.search);
-
-      var videoId = !dataSets.videoId
-        ? urlParams.get("aweVideoId")
+      var videoId = urlParams.get("videoId")
+        ? urlParams.get("videoId")
         : dataSets.videoid;
       if (!videoId) {
         return;
@@ -328,10 +327,9 @@ window.onload = function() {
             var container = getContainer();
             listVideos;
             if (container) {
-              psid = connectionObj.psid;
-              accessKey = connectionObj.accessKey;
+              var psid = connectionObj.psid;
+              var accessKey = connectionObj.accessKey;
               var iframeElement = d.createElement("iframe");
-
               iframeElement.src = `//pt.protoawe.com/tube-player/?psid=${psid}&accessKey=${accessKey}&contentHash=${contentHash}&psprogram=REVS&primaryColor=&labelColor=&c=p`;
               iframeElement.style.width = "100%";
               iframeElement.style.height = "100%";

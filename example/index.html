@@ -1,52 +1,73 @@
-<style>
-  .active {
-    background-color: red;
-  }
-</style>
-
-//Components
+<link rel="stylesheet" type="text/css" href="example/style.css" />
 
 <br />
-//search component
+<div class="search">
+  <input data-awe-search="popular" /><button data-awe-search-btn="popular">Search</button>
+</div>
 
-<input data-awe-search="popular" /><button data-awe-search-btn="popular">
-  Search
-</button>
-
-<br />
-//loading component
-<div data-awe-loader="popular">
-  Loading...
+<div data-awe-loader="popular" class="loader">
+  <svg
+    version="1.1"
+    id="L4"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 100 100"
+    enable-background="new 0 0 0 0"
+    xml:space="preserve"
+  >
+    <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.1"
+      />
+    </circle>
+    <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.2"
+      />
+    </circle>
+    <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.3"
+      />
+    </circle>
+  </svg>
 </div>
 
 <br />
 
-//Video list component
-<ul data-awe-list="popular" data-sexualOrientation="gay" data-limit="10">
-  <li>
-    <a href="details/?aweVideoId=@id">@title</a>
-    <img src="@previewImages.1" style="width: 258;height: 145;" />
-    @uploader @duration
-  </li>
-</ul>
+<div class="container" data-awe-list="popular" data-limit="16">
+  <div>
+    <a href="/example/details/?videoId=@id"
+      ><img src="@previewImages.1" style="width: 258;height: 145;"
+    /></a>
+    <a href="/example/details/?videoId=@id">@title</a>
+    <span><b>Duration</b> @duration min</span>
+  </div>
+</div>
 
-Pagination component
-<div data-awe-paginate="popular" data-pager-length="10">
+<div class="pagination" data-awe-paginate="popular" data-pager-length="10">
   <button data-pager-previous>
-    << Prev
+    Prev
   </button>
   <button data-pager-numbers></button>
   <button data-pager-next>
-    Next >>
+    Next
   </button>
 </div>
-list tags
-
-<ul data-awe-tags="alltags" data-limit="10">
-  <li>
-    <a href="/?videoTags=@tag">@tag</a>
-  </li>
-</ul>
 
 <!-- connection details to be copied from dashboard -->
 <script
