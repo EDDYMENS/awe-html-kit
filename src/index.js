@@ -70,7 +70,7 @@ window.onload = function() {
         element.style.display = "none";
       },
       showElement: function(element) {
-        element.style.display = "flex";
+        element.style.display = "";
       }
     };
 
