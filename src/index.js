@@ -294,7 +294,8 @@ window.onload = function() {
       if (!videoId) {
         return;
       }
-      element.innerHTML += ` <div class="awe-player" data-awe-container-id="${playerId}" ></div>`;
+      element.dataset.aweContainerId = playerId;
+      element.classList.add("awe-player");
       preRenderActions({ element: element }, "player");
       requestProcessor("details/" + videoId, connectionObj, function(response) {
         if (!response.data.playerEmbedUrl) {
@@ -336,7 +337,7 @@ window.onload = function() {
               iframeElement.frameBorder = 0;
               iframeElement.setAttribute("allowfullscreen", "true");
 
-              container.appendChild(iframeElement);
+              container.prepend(iframeElement);
             }
           })(window, document);
         } catch (exception) {
