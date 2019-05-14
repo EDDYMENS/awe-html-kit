@@ -1,20 +1,55 @@
-<a href="/example">Home</a>
-<div data-awe-loader="player">
-  Loading...
-</div>
-<div
-  data-awe-player="player"
-  data-videoId="bab5c67a9e0b7bd2b42dda5cc0802503"
-  style="width:600;height:600;"
->
-  @title @duration
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>HTML-Kit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../style.css" />
+  </head>
+  <body>
+    <a href="/example">Home</a>
+    <div class="player-container">
+     
+      <div
+        class="player"
+        data-awe-player="player"
+        data-videoId="bab5c67a9e0b7bd2b42dda5cc0802503"
+      >
+        <h2>@title</h2>
+        <span><b>Uploader:</b> @uploader</span>
+        <span><b>Star:</b> @performerId</span>
+      </div>
+    </div>
+    <!-- <h4 class="container">More videos</h4> -->
 
-<!-- connection details to be copied from dashboard -->
-<script
-  src="http://localhost:6060/lib/library.js"
-  data-awe-connection
-  data-awe-PSID="eddymens"
-  data-awe-clientIp="0.0.0.0"
-  data-awe-accessKey="c72e2607c16a9873f6077df1ce496f8a"
-></script>
+    <div class="container" data-awe-list="popular" data-limit="16">
+        <div class="item">
+          <a href="/example/details/?videoId=@id">
+            <img src="@previewImages.1">
+            <a href="/example/details/?videoId=@id">@title</a>
+            <span>
+              <b>Duration</b> @duration min</span>
+        </div>
+      </div>
+      
+      <div class="pagination" data-awe-paginate="popular" data-pager-length="10">
+        <button data-pager-previous>
+          Prev
+        </button>
+        <button data-pager-numbers></button>
+        <button data-pager-next>
+          Next
+        </button>
+      </div>
+
+    <!-- connection details to be copied from dashboard -->
+    <script
+      src="http://localhost:6060/lib/library.js"
+      data-awe-connection
+      data-awe-PSID="eddymens"
+      data-awe-clientIp="0.0.0.0"
+      data-awe-accessKey="c72e2607c16a9873f6077df1ce496f8a"
+    ></script>
+  </body>
+</html>

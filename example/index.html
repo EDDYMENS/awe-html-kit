@@ -1,73 +1,57 @@
-<link rel="stylesheet" type="text/css" href="example/style.css" />
-
-<br />
-<div class="search">
-  <input data-awe-search="popular" /><button data-awe-search-btn="popular">Search</button>
-</div>
-
-<div data-awe-loader="popular" class="loader">
-  <svg
-    version="1.1"
-    id="L4"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
-    viewBox="0 0 100 100"
-    enable-background="new 0 0 0 0"
-    xml:space="preserve"
-  >
-    <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
-      <animate
-        attributeName="opacity"
-        dur="1s"
-        values="0;1;0"
-        repeatCount="indefinite"
-        begin="0.1"
-      />
-    </circle>
-    <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
-      <animate
-        attributeName="opacity"
-        dur="1s"
-        values="0;1;0"
-        repeatCount="indefinite"
-        begin="0.2"
-      />
-    </circle>
-    <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
-      <animate
-        attributeName="opacity"
-        dur="1s"
-        values="0;1;0"
-        repeatCount="indefinite"
-        begin="0.3"
-      />
-    </circle>
-  </svg>
-</div>
-
-<br />
-
-<div class="container" data-awe-list="popular" data-limit="16">
-  <div>
-    <a href="/example/details/?videoId=@id"
-      ><img src="@previewImages.1" style="width: 258;height: 145;"
-    /></a>
-    <a href="/example/details/?videoId=@id">@title</a>
-    <span><b>Duration</b> @duration min</span>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HTML Kit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="example/style.css" />
+</head>
+<body>
+  <br />
+  <div class="search">
+    <input data-awe-search="popular" /><button data-awe-search-btn="popular">Search</button>
   </div>
-</div>
+  
+  <div data-awe-loader="popular" class="loader">
+    <svg version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+      <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+        <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
+      </circle>
+      <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+        <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.2" />
+      </circle>
+      <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+        <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.3" />
+      </circle>
+    </svg>
+  </div>
+  
+  <br />
+  
+  <div class="container" data-awe-list="popular" data-limit="16">
+    <div class="item">
+      <a href="/example/details/?videoId=@id">
+        <img src="@previewImages.1">
+        <a href="/example/details/?videoId=@id">@title</a>
+        <span>
+          <b>Duration</b> @duration min</span>
+    </div>
+  </div>
+  
+  <div class="pagination" data-awe-paginate="popular" data-pager-length="10">
+    <button data-pager-previous>
+      Prev
+    </button>
+    <button data-pager-numbers></button>
+    <button data-pager-next>
+      Next
+    </button>
+  </div>
 
-<div class="pagination" data-awe-paginate="popular" data-pager-length="10">
-  <button data-pager-previous>
-    Prev
-  </button>
-  <button data-pager-numbers></button>
-  <button data-pager-next>
-    Next
-  </button>
-</div>
+</body>
+</html>
 
 <!-- connection details to be copied from dashboard -->
 <script
