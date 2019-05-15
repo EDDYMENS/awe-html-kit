@@ -49,7 +49,7 @@ and be sure to replace the `PSID-Here` and `accessKey-Here` with the one you cop
 
     </ul>
 
-Above you will notice the sample element has `data-awe-list` set to `popular`, popular is what is known as a label. This may not mean much right now , but will come in handy when we want to add pagination or render search results in this element. Also not the @ symbol, this is followed by video properties which is basically information about the video we will like to render . You can find the list of all available video properties in the **table 1.0.0**. In other to fine tune the list and kind of video you render you may pass extra data attrributes to the element. For example the `data-limit` tag has been set to `20` which will limit the number of videos to render to screen to 10 with or without pagination. You may find the full list of available attributes for tuning your video lisitng in the **table 1.1.0**
+Above you will notice the sample element has `data-awe-list` set to `popular`, popular is what is known as a label. This may not mean much right now , but will come in handy when we want to add pagination or render search results in this element. Also note the @ symbol, this is followed by video properties which is basically information about the video we will like to render . You can find the list of all available video properties in the **table 1.0.0**. In other to fine tune the list and kind of video you render you may pass extra data attrributes to the element. For example the `data-limit` tag has been set to `20` which will limit the number of videos to render to screen to 10 with or without pagination. You may find the full list of available attributes for tuning your video lisitng in the **table 1.1.0**
 
 **Table 1.0.0**
 
@@ -199,7 +199,7 @@ Here is a complete example below
 
 **Add Search**
 
-> The HTML Kit will not be complete without a way to search through videos. The search component is made up of two parts, the search box and the search button. Below is a a complete example of search component.
+> The HTML Kit will not be complete without a way to search through videos. The search component is made up of two parts, the search box and the search button. Below is a complete example of search component.
 
     <input  data-awe-search="popular" /><button  data-awe-search-btn="popular">
 
