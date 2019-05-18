@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/EDDYMENS/awe-html-kit.svg?branch=master)](https://travis-ci.com/EDDYMENS/awe-html-kit)
+
 ### AWE HTML KIT
 
 The AWE HTML Kit makes it easy to build Tubes that interact with the [AWEmpire API](http://awempire.com) , without writing a line of JavaScript.
