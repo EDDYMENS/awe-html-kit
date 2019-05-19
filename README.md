@@ -215,6 +215,6 @@ Key things to remember is to set the label to be the same as the list video comp
 
 - [x] Manage development with webpack
 - [x] Minify production version
+- [x] Break up script into components
 - [ ] Add test suite
-- [ ] Break up script into components
 - [ ] Add directive for getting related videos
