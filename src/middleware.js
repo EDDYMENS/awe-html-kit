@@ -34,5 +34,4 @@ class Middleware {
     helpers.style.showElement(payload.element);
   }
 }
-
 export { Middleware };

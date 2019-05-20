@@ -36,7 +36,6 @@ class VideoPlayerComponent {
         element: element,
         loaderLabel: element.dataset.awePlayer
       });
-      console.log(that);
 
       var url = new URL(response.data.playerEmbedUrl);
       var contentHash = url.searchParams.get("contentHash");

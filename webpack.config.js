@@ -1,6 +1,7 @@
 var webpack = require("webpack");
 var path = require("path");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+var LiveReloadPlugin = require("webpack-livereload-plugin");
 
 var libraryName = "library";
 var outputFile = libraryName + ".js";
@@ -12,6 +13,7 @@ var plugins = [],
   outputFile;
 var mode = "development";
 plugins.push(new webpack.LoaderOptionsPlugin({ options: {} }));
+plugins.push(new LiveReloadPlugin({ port: 5050 }));
 if (env === "build") {
   plugins.push(new UglifyJsPlugin());
   outputFile = libraryName + ".min.js";

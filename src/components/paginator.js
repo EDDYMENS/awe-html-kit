@@ -4,6 +4,7 @@ class Paginator {
     this.helpers = deps.helpers;
     this.templateList = deps.templateList;
     this.listVideos = listComponent.listVideos;
+    this.listComponent = listComponent;
   }
   render(label, pageData, filterList) {
     if (!this.templateList.paginators[label]) {
@@ -69,7 +70,7 @@ class Paginator {
     return function() {
       options.pageIndex = count;
       var template = that.templateList.list[label].template.innerHTML;
-      that.listVideos(label, options, template);
+      that.listVideos(label, options, template, that.listComponent);
     };
   }
 }
