@@ -35,7 +35,7 @@ class Paginator {
             pageData.currentPage,
             paginatorSize
           );
-    var prevCount = parseInt(pageData.currentPage) - 1;
+    var prevCount = parseInt(pageData.currentPage, 10) - 1;
     if (prevBtn && prevCount > 0) {
       element.appendChild(prevBtn.cloneNode(true)).onclick = this.flipPageFunc(
         label,
@@ -43,8 +43,8 @@ class Paginator {
         prevCount
       );
     }
-    for (var i = pager.startFrom; i <= parseInt(pager.endAt); i++) {
-      if (parseInt(pageData.totalPages) == i) {
+    for (var i = pager.startFrom; i <= parseInt(pager.endAt, 10); i++) {
+      if (parseInt(pageData.totalPages, 10) == i) {
         break;
       }
       var liveTemplate = template.cloneNode(true);

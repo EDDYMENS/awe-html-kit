@@ -21,7 +21,7 @@ class SearchComponent {
       }
       var searchWords = element.value;
       filterList.tags =
-        searchWords.split(" ").length == 2
+        searchWords.split(" ").length === 2
           ? searchWords
           : searchWords.replace(/ /g, ",");
       listComponent.listVideos(

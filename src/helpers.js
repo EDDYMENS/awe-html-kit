@@ -90,7 +90,7 @@ helpers.actions = {
     var endAt = currentCount + rightCount - 1;
     endAt =
       endAt - startFrom != wantedLength
-        ? parseInt(startFrom) + parseInt(wantedLength) - 1
+        ? parseInt(startFrom, 10) + parseInt(wantedLength, 10) - 1
         : endAt;
     return { startFrom: startFrom, endAt: endAt };
   },
@@ -105,7 +105,8 @@ helpers.actions = {
       taken = new Array(len);
     if (n > len)
       throw new RangeError("getRandom: more elements taken than available");
-    while (n--) {
+    n--;
+    while (n) {
       var x = Math.floor(Math.random() * len);
       result[n] = arr[x in taken ? taken[x] : x];
       taken[x] = --len in taken ? taken[len] : len;
