@@ -1,5 +1,6 @@
 ## AWE HTML KIT
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/963a24cc17b142f8a8c8161d82b6fcf8)](https://app.codacy.com/app/EDDYMENS/awe-html-kit?utm_source=github.com&utm_medium=referral&utm_content=EDDYMENS/awe-html-kit&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.com/EDDYMENS/awe-html-kit.svg?branch=master)](https://travis-ci.com/EDDYMENS/awe-html-kit) [![StyleCI](https://github.styleci.io/repos/186000724/shield?branch=master)](https://github.styleci.io/repos/186000724) [![codecov](https://codecov.io/gh/EDDYMENS/awe-html-kit/branch/master/graph/badge.svg)](https://codecov.io/gh/EDDYMENS/awe-html-kit)
 
 The AWE HTML Kit makes it easy to build Tubes that interact with the [AWEmpire API](http://awempire.com) , without writing a line of JavaScript.
