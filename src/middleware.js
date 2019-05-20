@@ -23,7 +23,7 @@ class Middleware {
     }
     helpers.actions.showLoader(label);
     helpers.actions.hidePaginator(label);
-    helpers.style.hideElement(payload.element);
+    helpers.styles.hideElement(payload.element);
   }
 
   //actions to preform after rendering
@@ -31,7 +31,7 @@ class Middleware {
     var helpers = this.helpers;
     helpers.actions.removeLoader(payload.loaderLabel);
     helpers.actions.showPaginator(payload.loaderLabel);
-    helpers.style.showElement(payload.element);
+    helpers.styles.showElement(payload.element);
   }
 }
 export { Middleware };

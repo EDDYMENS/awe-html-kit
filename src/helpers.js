@@ -1,7 +1,7 @@
 var helpers = {};
 
 //style changes
-helpers.style = {
+helpers.styles = {
   hideElement: function(element) {
     element.style.display = "none";
   },
@@ -16,8 +16,8 @@ helpers.actions = {
     var componentList = document.querySelectorAll(`[${componentTag}=${label}]`);
     componentList.forEach(component => {
       action == "hide"
-        ? helpers.style.hideElement(component)
-        : helpers.style.showElement(component);
+        ? helpers.styles.hideElement(component)
+        : helpers.styles.showElement(component);
     });
   },
   removeLoader: function(label) {
