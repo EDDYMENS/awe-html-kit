@@ -65,6 +65,9 @@ helpers.actions = {
     return element.dataset[labelKey];
   },
   getElement: function(label, componentType) {
+    if (!label && !componentType) {
+      throw "You need to provide a label and a componentType";
+    }
     return document.querySelector(
       `[${helpers.tagQueryMap[componentType].raw}=${label}]`
     );
@@ -82,6 +85,9 @@ helpers.actions = {
     return templateList;
   },
   generatePager: function(currentCount, wantedLength) {
+    if (currentCount > wantedLength || (!currentCount && !wantedLength)) {
+      throw "currentCount cannot be greater than wantedLength";
+    }
     var pageSplit = wantedLength / 2;
     var leftCount = Math.floor(pageSplit);
     var rightCount = Math.round(pageSplit);
@@ -105,8 +111,8 @@ helpers.actions = {
       taken = new Array(len);
     if (n > len)
       throw new RangeError("getRandom: more elements taken than available");
-    n--;
-    while (n) {
+
+    while (n--) {
       var x = Math.floor(Math.random() * len);
       result[n] = arr[x in taken ? taken[x] : x];
       taken[x] = --len in taken ? taken[len] : len;
