@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/EDDYMENS/awe-html-kit.svg?branch=master)](https://travis-ci.com/EDDYMENS/awe-html-kit) [![StyleCI](https://github.styleci.io/repos/186000724/shield?branch=master)](https://github.styleci.io/repos/186000724)
+## AWE HTML KIT
 
-### AWE HTML KIT
+[![Build Status](https://travis-ci.com/EDDYMENS/awe-html-kit.svg?branch=master)](https://travis-ci.com/EDDYMENS/awe-html-kit) [![StyleCI](https://github.styleci.io/repos/186000724/shield?branch=master)](https://github.styleci.io/repos/186000724) [![codecov](https://codecov.io/gh/EDDYMENS/awe-html-kit/branch/master/graph/badge.svg)](https://codecov.io/gh/EDDYMENS/awe-html-kit)
 
 The AWE HTML Kit makes it easy to build Tubes that interact with the [AWEmpire API](http://awempire.com) , without writing a line of JavaScript.
 If you are not all that into reading you might want to checkout the [video series](#swewe).
