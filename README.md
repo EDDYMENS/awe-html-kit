@@ -1,4 +1,3 @@
-
 # AWE HTML KIT
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/963a24cc17b142f8a8c8161d82b6fcf8)](https://app.codacy.com/app/EDDYMENS/awe-html-kit?utm_source=github.com&utm_medium=referral&utm_content=EDDYMENS/awe-html-kit&utm_campaign=Badge_Grade_Dashboard)
@@ -57,26 +56,26 @@ Above you will notice the sample element has `data-awe-list` set to `popular`, p
 
 #### Table 1.0.0
 
-||||
-|--- |--- |--- |
-|**Video property**|**data type**|**Description (Eg)**|
-|id|Alphanumeric|eg: `<div data-awe-list="example"> <span>@id</span> </div>`This will render the id between the span tags|
-|duration|Decimals|This is the length of the video in minutes|
-|title|Text|This is the title of the video|
-|uploader|Text|This is the name of the uploader of the video|
-|previewImages|Array|These are a list of preview images from the video.To render any of the images use an index counter. For example `previewImages.0` will render the first video and so on|
-|tags|Array|These are a list of tags the video is associated with.To render any of the tags use an index counter. For example `tags.0` will render the first tag and so on|
-|quality|Text|This will inform the quality grading of the video eg:hd or sd etc|
+|                    |               |                                                                                                                                                                         |
+| ------------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Video property** | **data type** | **Description (Eg)**                                                                                                                                                    |
+| id                 | Alphanumeric  | eg: `<div data-awe-list="example"> <span>@id</span> </div>`This will render the id between the span tags                                                                |
+| duration           | Decimals      | This is the length of the video in minutes                                                                                                                              |
+| title              | Text          | This is the title of the video                                                                                                                                          |
+| uploader           | Text          | This is the name of the uploader of the video                                                                                                                           |
+| previewImages      | Array         | These are a list of preview images from the video.To render any of the images use an index counter. For example `previewImages.0` will render the first video and so on |
+| tags               | Array         | These are a list of tags the video is associated with.To render any of the tags use an index counter. For example `tags.0` will render the first tag and so on          |
+| quality            | Text          | This will inform the quality grading of the video eg:hd or sd etc                                                                                                       |
 
 #### Table 1.1.0
 
-||||
-|--- |--- |--- |
-|**Data atrribute**|**Possible values**|**Description (Eg)**|
-|data-limit="value"|0, 1, 2 ...|eg: data-limit=20 Remember if you don't specify the limit the default limit used is 10|
-|data-sexualOrientation="value"|straight, gay, shemale|eg: data-sexualOrientation="gay" This will pull in videos based on the specified orientation|
-|data-quality="value"|sd, hd, fhd, uhd|eg: data-quality="hd" Quality of the content to filter by.|
-|data-tags="value1,value2,value3"|There are over 200 tags we will explore this in the list tags section|eg: data-tags="69, above average" This will pull a list of videos that conform to the choosen tags|
+|                                  |                                                                       |                                                                                                    |
+| -------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Data atrribute**               | **Possible values**                                                   | **Description (Eg)**                                                                               |
+| data-limit="value"               | 0, 1, 2 ...                                                           | eg: data-limit=20 Remember if you don't specify the limit the default limit used is 10             |
+| data-sexualOrientation="value"   | straight, gay, shemale                                                | eg: data-sexualOrientation="gay" This will pull in videos based on the specified orientation       |
+| data-quality="value"             | sd, hd, fhd, uhd                                                      | eg: data-quality="hd" Quality of the content to filter by.                                         |
+| data-tags="value1,value2,value3" | There are over 200 tags we will explore this in the list tags section | eg: data-tags="69, above average" This will pull a list of videos that conform to the choosen tags |
 
 #### Add Paginating
 
@@ -112,7 +111,8 @@ One of the nice to have when creating a tube is the ability to show a loader whi
 
     </div>
 
-> **List Tags**
+#### List Tags
+
 > You might want to list tags to allow users to click to video-specific video contents. This can be done using the `data-awe-tags="label"` data attribute. This will bring out the entire tag listing so you might want to limit this list using the `data-limit="10"` data attribute.
 > Here is a complete example:
 
@@ -163,8 +163,8 @@ Key things to remember is to set the label to be the same as the list video comp
 
 #### Todo
 
-- [x] Manage development with webpack
-- [x] Minify production version
-- [x] Break up script into components
-- [ ] Add test suite
-- [ ] Add directive for getting related videos
+-[x] Manage development with webpack
+-[x] Minify production version
+-[x] Break up script into components
+-[ ] Add test suite
+-[ ] Add directive for getting related videos
