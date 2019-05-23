@@ -6,7 +6,7 @@
   "scripts": {
     "build": "WEBPACK_ENV=build webpack",
     "dev": "WEBPACK_ENV=dev webpack --progress --colors --watch",
-    "test": "jest ./test/*.spec.js "
+    "test": "jest ./test/*.spec.js && codecov -t ffebcf57-f113-4ffb-aa72-5e7ec9c42505"
   },
   "repository": {
     "type": "git",
