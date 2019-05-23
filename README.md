@@ -164,7 +164,11 @@ Key things to remember is to set the label to be the same as the list video comp
 #### Todo
 
 -[x] Manage development with webpack
+
 -[x] Minify production version
+
 -[x] Break up script into components
+
 -[ ] Add test suite
+
 -[ ] Add directive for getting related videos
