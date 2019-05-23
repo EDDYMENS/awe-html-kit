@@ -6,3 +6,7 @@ before_script:
 script:
   - npm test
   - codecov
+
+cache:
+  directories:
+    - "$HOME/.npm"

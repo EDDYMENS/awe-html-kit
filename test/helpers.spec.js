@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 var tagQueryMap = require("../src/tagQueryMap");
 var library = require("../src/helpers");
 

@@ -45,6 +45,7 @@ window.onload = function() {
     helpers,
     deps
   );
+
   var searchComponent = new SearchComponent(listComponent, deps);
 
   listElements.forEach(element => {
@@ -57,6 +58,7 @@ window.onload = function() {
   players.forEach(element => {
     videoPlayerComponent.playVideo(element);
   });
+
   searchBtnList.forEach(searchBtnElement => {
     searchComponent.prepareSearchEvent(searchBtnElement);
   });
