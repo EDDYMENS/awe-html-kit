@@ -1,6 +1,7 @@
+jest.setTimeout(30000000);
 describe("Run List Component", () => {
   beforeAll(async () => {
-    await page.goto("http://localhost:4443/example/index.html", {
+    await page.goto("http://localhost:4443/example", {
       waitUntil: "networkidle0"
     });
     await page.setViewport({ width: 1598, height: 758 });

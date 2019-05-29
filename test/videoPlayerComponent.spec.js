@@ -1,4 +1,4 @@
-jest.setTimeout(300000);
+jest.setTimeout(30000000);
 describe("It Should render video player", () => {
   beforeAll(async () => {
     await page.goto(
